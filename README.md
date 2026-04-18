@@ -8,9 +8,15 @@ A macOS utility that starts your screen saver with a global keyboard shortcut. O
 
 ## Installation
 
-1. Double-click `ScreenLock.app` to launch it (or build from source — see below)
-2. A display icon appears in your menu bar
-3. Grant Accessibility permission when prompted
+Two formats on every release — both signed and notarised, pick whichever suits:
+
+- **[Installer (`.pkg`)](https://github.com/PerpetualBeta/ScreenLock/releases/latest/download/ScreenLock.pkg)** — recommended for first-time installs. Double-click to run; macOS Installer places the app in `/Applications` without quarantine or App Translocation.
+- **[Download (`.zip`)](https://github.com/PerpetualBeta/ScreenLock/releases/latest)** — unzip and drag `ScreenLock.app` to your Applications folder.
+
+After installation:
+
+1. Launch ScreenLock — a display icon appears in your menu bar
+2. Grant Accessibility permission when prompted
 
 ## How It Works
 
