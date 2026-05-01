@@ -21,6 +21,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         didSet {
             UserDefaults.standard.set(Int(hotkeyCode), forKey: "hotkeyCode")
             engine.updateHotkey(keyCode: hotkeyCode, modifiers: hotkeyModifiers)
+            republishHotkey()
         }
     }
 
@@ -34,7 +35,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         didSet {
             UserDefaults.standard.set(hotkeyModifiers.rawValue, forKey: "hotkeyModifiers")
             engine.updateHotkey(keyCode: hotkeyCode, modifiers: hotkeyModifiers)
+            republishHotkey()
         }
+    }
+
+    /// Push current binding to the JorvikKit registry so ShortcutHUD can list it.
+    private func republishHotkey() {
+        JorvikHotkeyRegistry.publish([
+            JorvikHotkey(actionTitle: "Lock Screen Now",
+                         keyCode: hotkeyCode,
+                         modifiers: hotkeyModifiers,
+                         activeContext: .anywhere),
+        ])
     }
 
     // MARK: - Lifecycle
@@ -60,6 +72,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         // Start the engine
         engine.start(keyCode: hotkeyCode, modifiers: hotkeyModifiers)
+        republishHotkey()
 
         // Poll for isActive to update icon once permission is granted
         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] timer in
