@@ -45,7 +45,7 @@ Click **Change…** to record a new keyboard shortcut. The shortcut must include
 ### General
 
 - **Accessibility** — permission status and grant button
-- **Menu bar icon pill** — optional coloured background for improved contrast on custom wallpapers
+- **Menu bar icon pill** — optional grey background for stronger contrast on busy or wallpaper-tinted menu bars (off by default)
 - **Launch at Login** — start automatically when you log in
 - **Auto-update** — check for new versions on a configurable schedule with optional automatic installation
 
