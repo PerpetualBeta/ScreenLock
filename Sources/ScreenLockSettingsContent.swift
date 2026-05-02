@@ -39,6 +39,6 @@ struct ScreenLockSettingsContent: View {
             }
         }
 
-        MenuBarPillSettings()
+        MenuBarPillSettings { delegate.updateIcon() }
     }
 }
