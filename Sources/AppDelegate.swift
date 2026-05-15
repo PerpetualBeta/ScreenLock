@@ -12,7 +12,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     private var statusItem: NSStatusItem!
     let engine = ScreenLockEngine()
-    let updateChecker = JorvikUpdateChecker(repoName: "ScreenLock")
 
     // @ObservationIgnored — @Observable's macro can't transform `lazy`.
     @ObservationIgnored let sparkleUserDriverDelegate = ScreenLockUserDriverDelegate()
@@ -67,11 +66,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         updateIcon()
-        // Sparkle handles update polling now. JorvikUpdateChecker instance
-        // remains because JorvikSettingsView.showWindow still requires one
-        // as a parameter, pending JorvikKit retirement (§11.5).
         _ = sparkleUpdater  // forces lazy init so Sparkle starts at launch
-        // updateChecker.checkOnSchedule()  // disabled — Sparkle owns this now
 
         let menu = NSMenu()
         menu.delegate = self
@@ -218,10 +213,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func openSettings() {
         let delegate = self
-        JorvikSettingsView.showWindow(
-            appName: "ScreenLock",
-            updateChecker: updateChecker
-        ) {
+        JorvikSettingsView.showWindow(appName: "ScreenLock") {
             ScreenLockSettingsContent(delegate: delegate)
         }
     }
