@@ -84,11 +84,11 @@ ScreenLock uses Swift Package Manager. No Xcode project is required.
 
 ```bash
 cd ~/Desktop/"Jorvik Software"/ScreenLock
-./build.sh
-open _BuildOutput/ScreenLock.app
+gmake build
+open .build/ScreenLock.app
 ```
 
-The build script runs `swift build -c release`, then assembles the `.app` bundle in `_BuildOutput/` with the executable, icon, and Info.plist.
+Requires GNU Make 4.x — `brew install make` installs it as `gmake`. The target is defined in the shared `release.mk` from `jorvik-release/`.
 
 ## How It Works (Technical)
 
