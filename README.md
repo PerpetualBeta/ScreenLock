@@ -28,7 +28,7 @@ After installation:
 
 ScreenLock listens for a configurable global hotkey and instantly launches the macOS screen saver when triggered. If your Mac is set to require a password after the screen saver starts, this effectively locks your machine in one keypress.
 
-The default shortcut is **Hyper+X** (⌘⌃⌥⇧X) — designed to work with [HyperCaps](https://github.com/PerpetualBeta/HyperCaps), which turns Caps Lock into a Hyper Key. Press Caps Lock + X to lock your screen.
+The default shortcut is **Hyper+X** (`control` `option` `shift` `command` `X`) — designed to work with [HyperCaps](https://github.com/PerpetualBeta/HyperCaps), which turns Caps Lock into a Hyper Key. Press Caps Lock + X to lock your screen.
 
 Any shortcut with at least one modifier key can be configured in Settings.
 
@@ -46,7 +46,7 @@ The display icon in the menu bar provides:
 
 ### Shortcut
 
-Click **Change…** to record a new keyboard shortcut. The shortcut must include at least one modifier key (⌘, ⌃, ⌥, or ⇧). The default is ⌘⌃⌥⇧X (Hyper+X).
+Click **Change…** to record a new keyboard shortcut. The shortcut must include at least one modifier key (`command`, `control`, `option`, or `shift`). The default is `control` `option` `shift` `command` `X` (Hyper+X).
 
 ### General
 
