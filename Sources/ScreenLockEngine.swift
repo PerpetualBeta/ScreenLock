@@ -21,11 +21,11 @@ private func screenLockCallback(
         if let tap = _screenLockTap {
             CGEvent.tapEnable(tap: tap, enable: true)
         }
-        return Unmanaged.passRetained(event)
+        return Unmanaged.passUnretained(event)
     }
 
     guard type == .keyDown else {
-        return Unmanaged.passRetained(event)
+        return Unmanaged.passUnretained(event)
     }
 
     let keyCode = UInt16(event.getIntegerValueField(.keyboardEventKeycode))
@@ -40,7 +40,7 @@ private func screenLockCallback(
         return nil // consume the event
     }
 
-    return Unmanaged.passRetained(event)
+    return Unmanaged.passUnretained(event)
 }
 
 // MARK: - ScreenLockEngine
