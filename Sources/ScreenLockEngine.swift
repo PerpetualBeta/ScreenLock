@@ -3,6 +3,22 @@ import ApplicationServices
 
 // MARK: - Module-level state for C-compatible CGEvent tap callback
 
+/// Whether a shortcut is bound at all.
+///
+/// The shortcut can be cleared from Settings, and a cleared one is stored as
+/// key code 0 with no modifiers. **Key code 0 is the letter A**, and the match
+/// below uses `flags.contains(requiredFlags)` where `contains([])` is true for
+/// every keystroke. Without this, clearing the shortcut would lock the screen
+/// on every A typed anywhere on the Mac, and consume the keystroke while doing
+/// it, because the match returns nil.
+///
+/// The loose `contains` is deliberate and must stay: it is what lets a
+/// HyperCaps hyper-key press still trigger the lock. See the comment at the
+/// match itself.
+private func isBound(_ keyCode: UInt16, _ modifiers: NSEvent.ModifierFlags) -> Bool {
+    keyCode != 0 || !modifiers.intersection(.deviceIndependentFlagsMask).isEmpty
+}
+
 private var _hotkeyCode: UInt16 = 7  // X key
 private var _hotkeyModifiers: NSEvent.ModifierFlags = [.command, .control, .option, .shift]  // Hyper
 private var _screenLockTap: CFMachPort?
@@ -35,7 +51,8 @@ private func screenLockCallback(
     // Check if the pressed key matches our hotkey (use contains, not ==,
     // because HyperCaps unions modifiers onto existing flags)
     let requiredFlags = _hotkeyModifiers.intersection(.deviceIndependentFlagsMask)
-    if keyCode == _hotkeyCode && flags.contains(requiredFlags) {
+    if isBound(_hotkeyCode, _hotkeyModifiers)
+        && keyCode == _hotkeyCode && flags.contains(requiredFlags) {
         DispatchQueue.main.async { _onTriggered?() }
         return nil // consume the event
     }

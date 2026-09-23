@@ -48,10 +48,12 @@ The display icon in the menu bar provides:
 
 Click **Change…** to record a new keyboard shortcut. The shortcut must include at least one modifier key (`command`, `control`, `option`, or `shift`). The default is `control` `option` `shift` `command` `X` (Hyper+X).
 
+**Clear** removes the shortcut entirely. With none bound, nothing is intercepted and the screen saver is still one click away from **Lock Screen Now** in the menu bar.
+
 ### General
 
 - **Accessibility** — permission status and grant button
-- **Show icon in menu bar** — hides the menu-bar icon while ScreenLock keeps running (still reachable via its keyboard shortcut). Your choice persists across launches, including login auto-start. *Shown only on macOS 14–15 — on macOS 26 (Tahoe) and later, use System Settings → Menu Bar, which provides this natively.*
+- **Show icon in menu bar** — hides the menu-bar icon while ScreenLock keeps running (still reachable via its keyboard shortcut, if one is bound; if you have cleared that too, re-open ScreenLock from Applications to bring the icon back). Your choice persists across launches, including login auto-start. *Shown only on macOS 14–15 — on macOS 26 (Tahoe) and later, use System Settings → Menu Bar, which provides this natively.*
 - **Menu bar icon pill** — optional grey background for stronger contrast on busy or wallpaper-tinted menu bars (off by default)
 - **Launch at Login** — start automatically when you log in
 

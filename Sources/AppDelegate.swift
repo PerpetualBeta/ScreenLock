@@ -49,6 +49,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     /// Push current binding to the JorvikKit registry so ShortcutHUD can list it.
     private func republishHotkey() {
+        // A cleared binding is published as nothing rather than as key code 0,
+        // which ShortcutHUD would otherwise list as the letter A.
+        guard hotkeyCode != 0 || !hotkeyModifiers.isEmpty else {
+            JorvikHotkeyRegistry.publish([])
+            return
+        }
         JorvikHotkeyRegistry.publish([
             JorvikHotkey(actionTitle: "Lock Screen Now",
                          keyCode: hotkeyCode,
@@ -245,7 +251,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     // MARK: - Shortcut display
 
     func shortcutDisplayString() -> String {
-        JorvikShortcutPanel.displayString(keyCode: hotkeyCode, modifiers: hotkeyModifiers)
+        // Say so rather than rendering key code 0 as the letter A.
+        guard hotkeyCode != 0 || !hotkeyModifiers.isEmpty else { return "Not set" }
+        return JorvikShortcutPanel.displayString(keyCode: hotkeyCode, modifiers: hotkeyModifiers)
     }
 
     // MARK: - About & Settings

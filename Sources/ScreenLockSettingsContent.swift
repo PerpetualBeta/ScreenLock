@@ -17,6 +17,12 @@ struct ScreenLockSettingsContent: View {
                 ),
                 displayString: { delegate.shortcutDisplayString() },
                 onChanged: nil,
+                onClear: {
+                    // Both halves. The property setters persist, re-publish and
+                    // push the new binding into the tap.
+                    delegate.hotkeyCode = 0
+                    delegate.hotkeyModifiers = []
+                },
                 eventTapToDisable: nil
             )
         }
