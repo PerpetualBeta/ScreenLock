@@ -30,7 +30,7 @@ ScreenLock listens for a configurable global hotkey and instantly launches the m
 
 The default shortcut is **Hyper+X** (`control` `option` `shift` `command` `X`) — designed to work with [HyperCaps](https://github.com/PerpetualBeta/HyperCaps), which turns Caps Lock into a Hyper Key. Press Caps Lock + X to lock your screen.
 
-Any shortcut with at least one modifier key can be configured in Settings.
+Any shortcut that includes `command`, `control` or `option`, or a function key on its own, can be configured in Settings.
 
 ## Menu Bar
 
@@ -46,7 +46,7 @@ The display icon in the menu bar provides:
 
 ### Shortcut
 
-Click **Change…** to record a new keyboard shortcut. The shortcut must include at least one modifier key (`command`, `control`, `option`, or `shift`). The default is `control` `option` `shift` `command` `X` (Hyper+X).
+Click **Change…** to record a new keyboard shortcut. The shortcut must include `command`, `control` or `option`, unless it is a function key: F1 to F20 can be used on their own. The default is `control` `option` `shift` `command` `X` (Hyper+X).
 
 **Clear** removes the shortcut entirely. With none bound, nothing is intercepted and the screen saver is still one click away from **Lock Screen Now** in the menu bar.
 

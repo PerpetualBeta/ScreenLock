@@ -19,6 +19,19 @@ private func isBound(_ keyCode: UInt16, _ modifiers: NSEvent.ModifierFlags) -> B
     keyCode != 0 || !modifiers.intersection(.deviceIndependentFlagsMask).isEmpty
 }
 
+/// Whether the modifiers held satisfy the ones the shortcut needs.
+///
+/// A function key can be recorded with no modifier, and for that binding the
+/// loose `contains` below is wrong: `contains([])` is true for every set, so a
+/// bare F5 would also fire on command-F5, which is the VoiceOver toggle. A bare
+/// binding therefore needs no modifier held. A binding with modifiers keeps
+/// `contains`, for the HyperCaps reason given at the match.
+private func modifiersMatch(_ held: NSEvent.ModifierFlags, _ required: NSEvent.ModifierFlags) -> Bool {
+    let four: NSEvent.ModifierFlags = [.command, .control, .option, .shift]
+    let needed = required.intersection(four)
+    return needed.isEmpty ? held.intersection(four).isEmpty : held.contains(needed)
+}
+
 private var _hotkeyCode: UInt16 = 7  // X key
 private var _hotkeyModifiers: NSEvent.ModifierFlags = [.command, .control, .option, .shift]  // Hyper
 private var _screenLockTap: CFMachPort?
@@ -52,7 +65,7 @@ private func screenLockCallback(
     // because HyperCaps unions modifiers onto existing flags)
     let requiredFlags = _hotkeyModifiers.intersection(.deviceIndependentFlagsMask)
     if isBound(_hotkeyCode, _hotkeyModifiers)
-        && keyCode == _hotkeyCode && flags.contains(requiredFlags) {
+        && keyCode == _hotkeyCode && modifiersMatch(flags, requiredFlags) {
         DispatchQueue.main.async { _onTriggered?() }
         return nil // consume the event
     }
